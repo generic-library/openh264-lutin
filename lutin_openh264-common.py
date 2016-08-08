@@ -100,6 +100,10 @@ def create(target, module_name):
 	my_module.add_module_depend([
 	    'cxx'
 	    ])
-	my_module.add_export_flag('link-lib', "pthread")
 	my_module.compile_version("C++", 2003)
+	my_module.add_module_depend([
+		    'cxx',
+		    'pthread',
+		    'm'
+		    ])
 	return my_module
