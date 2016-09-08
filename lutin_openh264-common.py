@@ -97,11 +97,11 @@ def create(target, module_name):
 	    'openh264/codec/api/svc/codec_ver.h',
 		],
 		destination_path="")
-	my_module.add_module_depend([
+	my_module.add_depend([
 	    'cxx'
 	    ])
 	my_module.compile_version("C++", 2003)
-	my_module.add_module_depend([
+	my_module.add_depend([
 		    'cxx',
 		    'pthread',
 		    'm'

@@ -77,7 +77,7 @@ def create(target, module_name):
 		],
 		destination_path="")
 	my_module.compile_version("C++", 2003)
-	my_module.add_module_depend([
+	my_module.add_depend([
 	    'openh264-common'
 	    ])
 	return my_module

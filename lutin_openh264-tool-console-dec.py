@@ -29,5 +29,5 @@ def create(target, module_name):
 	my_module.add_path(os.path.join(tools.get_current_path(__file__), "openh264", "codec", "console", "dec", "inc"))
 	my_module.add_path(os.path.join(tools.get_current_path(__file__), "openh264", "codec", "console", "common", "inc"))
 	my_module.compile_version("c++", 2003)
-	my_module.add_module_depend('openh264')
+	my_module.add_depend('openh264')
 	return my_module
