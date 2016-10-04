@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import lutin.module as module
+import lutin.debug as debug
 import lutin.tools as tools
 
 
@@ -18,8 +18,7 @@ def get_maintainer():
 def get_version():
 	return [1,6,0]
 
-def create(target, module_name):
-	my_module = module.Module(__file__, module_name, get_type())
+def configure(target, my_module):
 	my_module.add_src_file([
 	    'openh264/codec/common/src/welsCodecTrace.cpp',
 	    'openh264/codec/common/src/sad_common.cpp',
@@ -106,4 +105,4 @@ def create(target, module_name):
 		    'pthread',
 		    'm'
 		    ])
-	return my_module
+	return True

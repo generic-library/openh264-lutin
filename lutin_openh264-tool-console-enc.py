@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import lutin.module as module
+import lutin.debug as debug
 import lutin.tools as tools
 import os
 
@@ -19,14 +19,13 @@ def get_maintainer():
 	return ["HaiboZhu <haibozhu@cisco.com>"]
 
 
-def create(target, module_name):
-	my_module = module.Module(__file__, module_name, get_type())
+def configure(target, my_module):
 	my_module.add_src_file([
 	    'openh264/codec/console/enc/src/welsenc.cpp',
 	    'openh264/codec/console/common/src/read_config.cpp',
 	    ])
-	my_module.add_path(os.path.join(tools.get_current_path(__file__), "openh264", "codec", "console", "enc", "inc"))
-	my_module.add_path(os.path.join(tools.get_current_path(__file__), "openh264", "codec", "console", "common", "inc"))
+	my_module.add_path("openh264/codec/console/enc/inc")
+	my_module.add_path("openh264/codec/console/common/inc")
 	my_module.compile_version("c++", 2003)
 	my_module.add_depend('openh264')
-	return my_module
+	return True

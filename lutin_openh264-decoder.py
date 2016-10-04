@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import lutin.module as module
+import lutin.debug as debug
 import lutin.tools as tools
 
 
@@ -18,8 +18,7 @@ def get_maintainer():
 def get_version():
 	return [1,6,0]
 
-def create(target, module_name):
-	my_module = module.Module(__file__, module_name, get_type())
+def configure(target, my_module):
 	my_module.add_src_file([
 	    'openh264/codec/decoder/core/src/decoder.cpp',
 	    'openh264/codec/decoder/core/src/cabac_decoder.cpp',
@@ -41,7 +40,7 @@ def create(target, module_name):
 	    'openh264/codec/decoder/core/src/decode_slice.cpp',
 	    'openh264/codec/decoder/core/src/get_intra_predictor.cpp',
 	    'openh264/codec/decoder/plus/src/welsDecoderExt.cpp',
-		])
+	    ])
 	if target.config["arch"] == "arm":
 		if target.config["bus-size"] == "64":
 			my_module.add_src_file([
@@ -53,7 +52,6 @@ def create(target, module_name):
 			    'openh264/codec/decoder/core/arm/intra_pred_neon.S',
 			    'openh264/codec/decoder/core/arm/block_add_neon.S',
 			    ])
-
 	my_module.add_header_file([
 	    'openh264/codec/decoder/core/inc/decoder.h',
 	    'openh264/codec/decoder/core/inc/error_concealment.h',
@@ -87,12 +85,11 @@ def create(target, module_name):
 	    'openh264/codec/decoder/core/inc/decode_mb_aux.h',
 	    'openh264/codec/decoder/core/inc/nal_prefix.h',
 	    'openh264/codec/decoder/plus/inc/welsDecoderExt.h',
-
-		],
-		destination_path="")
+	    ],
+	    destination_path="")
 	my_module.compile_version("C++", 2003)
 	my_module.add_depend([
 	    'openh264-common',
 	    'openh264-processing'
 	    ])
-	return my_module
+	return True

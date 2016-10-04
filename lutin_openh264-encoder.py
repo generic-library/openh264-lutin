@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import lutin.module as module
+import lutin.debug as debug
 import lutin.tools as tools
 
 
@@ -18,8 +18,7 @@ def get_maintainer():
 def get_version():
 	return [1,6,0]
 
-def create(target, module_name):
-	my_module = module.Module(__file__, module_name, get_type())
+def configure(target, my_module):
 	my_module.add_src_file([
 	    'openh264/codec/encoder/core/src/svc_encode_slice.cpp',
 	    'openh264/codec/encoder/core/src/svc_enc_slice_segment.cpp',
@@ -54,7 +53,7 @@ def create(target, module_name):
 	    'openh264/codec/encoder/core/src/md.cpp',
 #	    'openh264/codec/encoder/plus/src/DllEntry.cpp',
 	    'openh264/codec/encoder/plus/src/welsEncoderExt.cpp',
-		])
+	    ])
 	if target.config["arch"] == "arm":
 		if target.config["bus-size"] == "64":
 			my_module.add_src_file([
@@ -125,11 +124,11 @@ def create(target, module_name):
 	    'openh264/codec/encoder/core/inc/paraset_strategy.h',
 	    'openh264/codec/encoder/core/inc/svc_mode_decision.h',
 	    'openh264/codec/encoder/plus/inc/welsEncoderExt.h',
-		],
-		destination_path="")
+	    ],
+	    destination_path="")
 	my_module.compile_version("C++", 2003)
 	my_module.add_depend([
 	    'openh264-common',
 	    'openh264-processing'
 	    ])
-	return my_module
+	return True

@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import lutin.module as module
+import lutin.debug as debug
 import lutin.tools as tools
 
 
@@ -18,8 +18,7 @@ def get_maintainer():
 def get_version():
 	return [1,6,0]
 
-def create(target, module_name):
-	my_module = module.Module(__file__, module_name, get_type())
+def configure(target, my_module):
 	my_module.add_src_file([
 	    'openh264/codec/processing/src/adaptivequantization/AdaptiveQuantization.cpp',
 	    'openh264/codec/processing/src/vaacalc/vaacalcfuncs.cpp',
@@ -38,7 +37,7 @@ def create(target, module_name):
 	    'openh264/codec/processing/src/scrolldetection/ScrollDetectionFuncs.cpp',
 	    'openh264/codec/processing/src/scrolldetection/ScrollDetection.cpp',
 	    'openh264/codec/processing/src/complexityanalysis/ComplexityAnalysis.cpp',
-		])
+	    ])
 	if target.config["arch"] == "arm":
 		if target.config["bus-size"] == "64":
 			my_module.add_src_file([
@@ -54,7 +53,6 @@ def create(target, module_name):
 			    'openh264/codec/processing/src/arm/adaptive_quantization.S',
 			    'openh264/codec/processing/src/arm/vaa_calc_neon.S',
 			    ])
-
 	my_module.add_header_file([
 	    'openh264/codec/processing/src/adaptivequantization/AdaptiveQuantization.h',
 	    'openh264/codec/processing/src/vaacalc/vaacalculation.h',
@@ -73,11 +71,10 @@ def create(target, module_name):
 	    'openh264/codec/processing/src/scrolldetection/ScrollDetection.h',
 	    'openh264/codec/processing/src/complexityanalysis/ComplexityAnalysis.h',
 	    'openh264/codec/processing/interface/IWelsVP.h',
-
-		],
-		destination_path="")
+	    ],
+	    destination_path="")
 	my_module.compile_version("C++", 2003)
 	my_module.add_depend([
 	    'openh264-common'
 	    ])
-	return my_module
+	return True
